@@ -15,3 +15,11 @@ def create_job(db: Session, job_data: JobCreate) -> Job:
     db.refresh(job)
 
     return job
+
+
+def get_jobs(db: Session) -> list[Job]:
+    return db.query(Job).order_by(Job.id.desc()).all()
+
+
+def get_job_by_id(db: Session, job_id: int) -> Job | None:
+    return db.query(Job).filter(Job.id == job_id).first()
