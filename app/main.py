@@ -1,22 +1,22 @@
 from fastapi import FastAPI
 
+from app.database import Base, engine
+from app.routers.jobs import router as jobs_router
+
+
+
+# Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(
     title="CV Scoring API",
-    description="AI-powered CV and job description matching system",
-    version="0.1.0",
+    version="0.1.0"
 )
 
 
-@app.get("/")
-def root():
-    return {
-        "message": "CV Scoring API"
-    }
+app.include_router(jobs_router)
 
 
 @app.get("/health")
 def health_check():
-    return {
-        "status": "ok"
-    }
+    return {"status": "ok"}
